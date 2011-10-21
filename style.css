@@ -1,0 +1,42 @@
+body {
+	font-family: Calibri, 'MS Sans Serif', sans-serif;
+	text-align: justify
+}
+
+code {
+	background-color: lightgray;
+	padding: 2px;
+	margin: 1px
+}
+
+a {
+	font-weight: bold;
+	text-decoration: none
+}
+
+.paragraph {
+	margin-left: 25px;
+	margin-right: 25px
+}
+
+.sub-header {
+	margin-left: 10px;
+	margin-right: 10px
+}
+
+.nav-pane {
+	background-color: white;
+	border-bottom: solid red 5px;
+	text-align: center;
+	width: 100%
+}
+
+.nav-element {
+	width: 25%;
+	font-weight: bold;
+	padding: 5px
+}
+
+.nav-element:hover {
+	background-color: #EFEFEF;
+}
