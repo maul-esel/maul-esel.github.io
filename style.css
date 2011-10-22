@@ -1,12 +1,47 @@
 body {
 	font-family: Calibri, 'MS Sans Serif', sans-serif;
-	text-align: justify
 }
 
-code {
-	background-color: lightgray;
+li {
+	margin-bottom: 5px
+}
+
+pre, code {
+	background-color: #DEDEDE;
 	padding: 2px;
-	margin: 1px
+	margin: 5px;
+	font-family: Consolas, Courier New, monospace;
+	font-size: 80%;
+}
+
+pre em, code em { /* comments */
+	color: green;
+}
+
+pre.outline { /* code out of line */
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+pre[versioned=true]:first-line {	/* highlight version information in first line */
+	font-weight: bold;	
+}
+
+blockquote {
+	border: solid lightgray 3px;
+	padding: 2px
+}
+
+cite {
+	font-style: italic;
+}
+
+cite:before {
+	content: '"'
+}
+
+cite:after {
+	content: '"'
 }
 
 a:link, a:visited {
@@ -15,12 +50,13 @@ a:link, a:visited {
 	text-decoration: none
 }
 
-.paragraph {
+p.paragraph {
 	margin-left: 25px;
-	margin-right: 25px
+	margin-right: 25px;
+	text-align: justify
 }
 
-.sub-header {
+h2.sub-header {
 	margin-left: 10px;
 	margin-right: 10px
 }
