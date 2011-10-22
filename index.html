@@ -2,20 +2,21 @@
 <html>
 	<head>
 		<title>maul.esel's homepage</title>
-		<link rel="StyleSheet" href="style.css" type="text/css">
+		<script type='text/javascript' src='http://code.jquery.com/jquery-1.6.4.js'></script>
+		<script type='text/javascript' src='script.js'></script>
+		<link rel='StyleSheet' href='style.css' type='text/css'>
 	</head>
-	<body style="padding:25px">
-	
-		<table>
+	<body style='padding:25px'>
+		<table width='100%'>
 			<thead>
 				<tr>
-					<td style="background-color:lightgray; padding:10px">
-						<table class="nav-pane" width="100%" border="1" rules="cols" frame="void">
+					<td style='background-color:lightgray; padding:10px'>
+						<table class='nav-pane'>
 							<tr>
-								<td class="nav-element">Home</td>
-								<td class="nav-element">Blog</td>
-								<td class="nav-element">Tutorials</td>
-								<td class="nav-element">Links</td>
+								<td class='nav-element' selected='true'>Home</td>
+								<td class='nav-element' onclick='Open("blog")'>Blog</td>
+								<td class='nav-element' onclick='Open("tutorials")'>Tutorials</td>
+								<td class='nav-element' onclick='Open("links")'>Links</td>
 							</tr>
 						</table>
 					</td>
@@ -24,36 +25,50 @@
 			<tbody>
 				<tr>
 					<td>
-						<h1 align="center">maul.esel - coding projects</h1>
+						<h1 align='center'>maul.esel - coding projects</h1>
 						<hr />
-						<p class="paragraph" id="introduction">
+						<p class='paragraph' id='introduction'>
 							On this little homepage I'll post some experiences I make in programming, mainly in <b>AutoHotkey</b> and <b>C#</b>.
 						</p>
-						<h3 class="sub-header" id="history">my short coding history</h3>
-						<p class="paragraph">
-							I started programming in late 2010, with the great <a href="http://www.autohotkey.com">AutoHotkey</a> scripting language.
+						<h2 class='sub-header' id='history'>my short coding history</h2>
+						<p class='paragraph'>
+							I started programming in late 2010, with the great <a href='http://www.autohotkey.com'>AutoHotkey</a> scripting language.
 							I did not use it a lot for hotkeys and automation, its typical uses.
 							Instead I was more interested in developing libraries, mostly using some Windows API.
-							Starting with "regular" functions, like the <a href="http://de.autohotkey.com/forum/viewtopic.php?t=8274">DWM thumbnail API</a>,
+							Starting with "regular" functions, like the <a href='http://de.autohotkey.com/forum/viewtopic.php?t=8274'>DWM thumbnail API</a>,
 							I moved on to the fantastic and various topics of <b>COM</b>. <br />
 							Thanks to Steve Gray / Lexikos and his AutoHotkey_L custom build, there's already a great integration of <b>COM</b>:
 							using script objects, scripters can call any <code>IDispatch</code> interface.
 							However, there's more than just <code>IDispatch</code>:
 							After investigating a bit, and with great help from Lexikos and other community members,
-							I got around how to call those interfaces' methods. This is when the <a href="http://www.autohotkey.com/forum/viewtopic.php?t=71201">COM Classes Project</a> was born.
+							I got around how to call those interfaces' methods. This is when the <a href='http://www.autohotkey.com/forum/viewtopic.php?t=71201'>COM Classes Project</a> was born.
 						</p>
-						<p class="paragraph">
-							Following the <a href="http://www.autohotkey.com/forum/topic54494-480.html">IronAHK</a> project and some of its contributors in the forums,
+						<p class='paragraph'>
+							Following the <a href='http://www.autohotkey.com/forum/topic54494-480.html'>IronAHK</a> project and some of its contributors in the forums,
 							namely IsNull and RaptorOne, I got in touch with <b>C#</b>.
-							Curious as I am (sometimes ;-), I started looking into it. The online book <a href="http://www.guidetocsharp.de">guide to Csharp</a> lead me into the right direction.
-							As I like learning by doing, I started by translating my current <b>AutoHotkey</b> project, called "AHK.ScriptsMan", into <b>C#</b>.
+							Curious as I am (sometimes ;-), I started looking into it. The online book <a href='http://www.guidetocsharp.de'>guide to Csharp</a> lead me into the right direction.
+							As I like learning by doing, I started by translating my current <b>AutoHotkey</b> project,
+							called <a href="https://github.com/maul-esel/AHK.ScriptsMan">"AHK.ScriptsMan"</a>, into <b>C#</b>.
 							This thing has developed a lot since that time, it's still my main project,
-							but now it is called <a href="http://www.autohotkey.com/forum/viewtopic.php?t=72874">ChameleonCoder</a>.
+							but now it is called <a href='http://www.autohotkey.com/forum/viewtopic.php?t=72874'>ChameleonCoder</a>.
 						</p>
+						<hr />
+						<h2 class='sub-header' id='github'>My github activities</h2>
+						<div id='github-badge' width='25%'></div>
 					</td>
 				</tr>
 			</tbody>		
 		</table>
 		
+		<script type='text/javascript'>
+			// data for github badge
+			GITHUB_USERNAME = 'maul-esel';
+			GITHUB_LIST_LENGTH = 100;
+			GITHUB_HEAD = 'div'; // e.g. change to 'h2' for wordpress sidebars
+			GITHUB_THEME = 'white'; // try 'black'
+			GITHUB_TITLE = 'my repositories:'
+			GITHUB_SHOW_ALL = 'Show all'
+		</script>
+		<script type='text/javascript' src='http://drnicjavascript.rubyforge.org/github_badge/dist/github-badge-launcher.js'></script>		
 	</body>
 </html>

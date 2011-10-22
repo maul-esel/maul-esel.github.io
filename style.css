@@ -9,7 +9,8 @@ code {
 	margin: 1px
 }
 
-a {
+a:link, a:visited {
+	color: navy;
 	font-weight: bold;
 	text-decoration: none
 }
@@ -24,19 +25,32 @@ a {
 	margin-right: 10px
 }
 
-.nav-pane {
+table.nav-pane {
 	background-color: white;
-	border-bottom: solid red 5px;
 	text-align: center;
-	width: 100%
+	width: 100%;
+	border-spacing: 0px;
+	height: auto
 }
 
-.nav-element {
+td.nav-element {
 	width: 25%;
+	border-bottom: solid red 5px;
 	font-weight: bold;
-	padding: 5px
+	cursor: pointer
 }
 
-.nav-element:hover {
+td.nav-element[selected=true] {
+	border-bottom: solid green 5px;
+	cursor: default
+}
+
+td.nav-element:hover, td.nav-element:focus {
 	background-color: #EFEFEF;
+	border-bottom: solid darkred 5px;
+}
+
+td.nav-element[selected=true]:hover, td.nav-element:focus {
+	background-color: inherit;
+	border-bottom: solid green 5px;
 }
