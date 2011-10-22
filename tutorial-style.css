@@ -1,0 +1,5 @@
+li.tutorial-entry {
+	padding: 5px;
+	border: solid lightgray 5px;
+	border-bottom: solid red 5px
+}
