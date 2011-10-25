@@ -1,0 +1,10 @@
+p.glossary-entry {
+	margin-left: 25px;
+	margin-right: 25px;
+	text-align: justify
+}
+
+p.glossary-entry:first-line {
+	font-weight: bold;
+	font-size: 120%
+}

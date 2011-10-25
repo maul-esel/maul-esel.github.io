@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>maul.esel's homepage - glossary</title>
+		<script type='text/javascript' src='script.js'></script>
+		<link rel='StyleSheet' href='style.css' type='text/css'/>
+		<link rel='StyleSheet' href='glossary-style.css' type='text/css'/>
+	</head>
+	<body>
+		<table width='100%'>
+			<thead>
+				<tr>
+					<td style='background-color:lightgray; padding:10px'>
+						<table class='nav-pane'>
+							<tr>
+								<td class='nav-element' onclick='Open("index")'>Home</td>
+								<td class='nav-element' onclick='Open("blog")'>Blog</td>
+								<td class='nav-element' onclick='Open("tutorials")'>Tutorials</td>
+								<td class='nav-element' onclick='Open("links")'>Links</td>
+								<td class='nav-element' selected='true'>Glossary</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<h1>Glossary</h1>
+						<hr/>
+						<h2 class='sub-header'>A</h2>
+						<ul>
+							<li>
+								<p class='glossary-entry' id='AutoHotkey'>AutoHotkey (AHK)<br/>is a powerful scripting language by Chris Mallett.
+									It allows manipulation of applications' windows, easy definition of hotkeys and auto-replace hotstrings, user-defined functions,
+									UI creation (with standard Win32 controls), and a lot more.<br/>
+									<i>Development has been stopped.</i>
+								</p>
+							</li>
+							<li>
+								<p class='glossary-entry' id='AutoHotkey_L'>AutoHotkey_L (AHK_L)<br/>is a custom version of the AutoHotkey scripting language,
+									developed by Lexikos (Steve Gray). It is based on the original AutoHotkey source code and adds features
+									such as Array / Object support, Unicode, 64bit support, native COM and a lot more.
+									AutoHotkey scripts should be compatible to AutoHotkey_L in most cases, except for some encoding issues and variale names using reserved characters.<br/>
+									<i>AutoHotkey_L is actively developed.</i>
+								</p>
+							</li>
+							<li>
+								<p class='glossary-entry' id='AutoHotkey2'>AutoHotkey v2 (AHK v2)<br/>is the next version of the AutoHotkey scripting language,
+									developed by Lexikos (Steve Gray) and based on the AutoHotkey_L source code. It will clean up syntax, (hopefully) simplify things,
+									and make more use of Array / Object features. Unlike <a href='#AutoHotkey_L'>AutoHotkey_L</a>, it will contain many breaking changes.<br/>
+									<i>AutoHotkey v2 is actively developed, but it is still in alpha stage.</i>
+								</p>
+							</li>
+						</ul>
+						<h2 class='sub-header'>I</h2>
+						<ul>
+							<li>
+								<p class='glossary-entry' id='IronAHK'>IronAHK (IA)<br/>is another custom version of the AutoHotkey scripting language, developed by polyethene / Titan, running on <b>.NET</b>.
+									It represents a from-scratch rewrite, but also adds some features, such as Array/Object and Unicode support.
+									The goal is to be able to run AutoHotkey on any system, and to compile it into .NET assemblies.<br/>
+									<i>Unluckily, development seems to be paused for some time now.</i>
+								</p>
+							</li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
