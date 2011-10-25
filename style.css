@@ -71,7 +71,7 @@ table.nav-pane {
 }
 
 td.nav-element {
-	width: 25%;
+	width: 20%;
 	border-bottom: solid red 5px;
 	font-weight: bold;
 	cursor: pointer
