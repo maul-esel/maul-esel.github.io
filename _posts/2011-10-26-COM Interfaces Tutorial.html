@@ -94,41 +94,41 @@ ITaskbarList : public IUnknown</pre>
 			<pre>class DECLSPEC_UUID(&quot;56FDF344-FD6D-11d0-958A-006097C9A090&quot;)<br/>TaskbarList;</pre>
 			So now we have at least CLSID and IID. Going back to the definition of <code>ITaskbarList</code>, you can see the following some lines underneath:
 			<pre>    typedef struct ITaskbarListVtbl
-{
-BEGIN_INTERFACE
+	{
+	BEGIN_INTERFACE
 
-HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
-__RPC__in ITaskbarList * This,
-/* [in] */ __RPC__in REFIID riid,
-/* [annotation][iid_is][out] */ 
-__RPC__deref_out  void **ppvObject);
+	HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+	__RPC__in ITaskbarList * This,
+	/* [in] */ __RPC__in REFIID riid,
+	/* [annotation][iid_is][out] */ 
+	__RPC__deref_out  void **ppvObject);
 
-ULONG ( STDMETHODCALLTYPE *AddRef )( 
-__RPC__in ITaskbarList * This);
+	ULONG ( STDMETHODCALLTYPE *AddRef )( 
+	__RPC__in ITaskbarList * This);
 
-ULONG ( STDMETHODCALLTYPE *Release )( 
-__RPC__in ITaskbarList * This);
+	ULONG ( STDMETHODCALLTYPE *Release )( 
+	__RPC__in ITaskbarList * This);
 
-HRESULT ( STDMETHODCALLTYPE *HrInit )( 
-__RPC__in ITaskbarList * This);
+	HRESULT ( STDMETHODCALLTYPE *HrInit )( 
+	__RPC__in ITaskbarList * This);
 
-HRESULT ( STDMETHODCALLTYPE *AddTab )( 
-__RPC__in ITaskbarList * This,
-/* [in] */ __RPC__in HWND hwnd);
+	HRESULT ( STDMETHODCALLTYPE *AddTab )( 
+	__RPC__in ITaskbarList * This,
+	/* [in] */ __RPC__in HWND hwnd);
 
-HRESULT ( STDMETHODCALLTYPE *DeleteTab )( 
-__RPC__in ITaskbarList * This,
-/* [in] */ __RPC__in HWND hwnd);
+	HRESULT ( STDMETHODCALLTYPE *DeleteTab )( 
+	__RPC__in ITaskbarList * This,
+	/* [in] */ __RPC__in HWND hwnd);
 
-HRESULT ( STDMETHODCALLTYPE *ActivateTab )( 
-__RPC__in ITaskbarList * This,
-/* [in] */ __RPC__in HWND hwnd);
+	HRESULT ( STDMETHODCALLTYPE *ActivateTab )( 
+	__RPC__in ITaskbarList * This,
+	/* [in] */ __RPC__in HWND hwnd);
 
-HRESULT ( STDMETHODCALLTYPE *SetActiveAlt )( 
-__RPC__in ITaskbarList * This,
-/* [in] */ __RPC__in HWND hwnd);
+	HRESULT ( STDMETHODCALLTYPE *SetActiveAlt )( 
+	__RPC__in ITaskbarList * This,
+	/* [in] */ __RPC__in HWND hwnd);
 
-END_INTERFACE
+	END_INTERFACE
 } ITaskbarListVtbl;</pre>
 		This is the method list in vTable-order, including the methods inherited from other interfaces, in this case <code>IUnknown</code>.</li>
 	</ul>
