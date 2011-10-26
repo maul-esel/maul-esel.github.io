@@ -1,0 +1,296 @@
+---
+layout: post
+title: COM interface tutorial
+categories: ['tutorials', 'AutoHotkey', 'AutoHotkey_L', 'IronAHK', 'COM']
+
+ahk_versions: { 'AutoHotkey': false, 'AutoHotkey_L':true, 'AutoHotkey v2' : true }
+required_os: 'None'
+skills: 'medium / high'
+
+css_files: ['/css/style.css', '/css/tutorial-style.css']
+js_files: ['/script.js']
+---
+
+<!-- index -->
+<ol class='index'>
+	<li class='index-entry'><a href='#Introduction'>Introduction</a></li>
+	<li class='index-entry'><a href='#Native_COM'>Native COM in AutoHotkey_L and AutoHotkey v2</a></li>
+	<li class='index-entry'><a href='#Investigate_Interface'>Investigating on the interface</a></li>
+	<li class='index-entry'><a href='#Create_Instance'>Creating an instance</a></li>
+	<li class='index-entry'><a href='#Pointers_VTable'>Pointers and the vTable</a></li>
+	<li class='index-entry'><a href='#Investigate_Method'>Investigating on a method</a></li>
+	<li class='index-entry'><a href='#Get_pointer_method'>Getting a pointer to a method</a></li>
+	<li class='index-entry'><a href='#Call_method'>Calling a method</a></li>
+	<li class='index-entry'><a href='#short_version'>The short version</a></li>
+	<li class='index-entry'><a href='#class_syntax'>Using COM interfaces with class syntax</a></li>
+	<li class='index-entry'><a href='#COM_Classes_Project'>COM Classes Project</a></li>
+</ol>
+
+<!-- content -->
+<h2 class='sub-header' id='Introduction'>Introduction</h2>
+<p class='paragraph'>
+	<b>COM</b> is a very powerful way to automate things on your computer.
+	You may know the <a href='http://www.autohotkey.com/wiki/index.php?title=COM_Standard_Library'>COM Standard Library</a> by sean
+	or some of the <a href='http://www.autohotkey.com/wiki/index.php?title=COM_Wrappers'>COM Wrappers</a>.
+	And of course, AutoHotkey_L has native COM support.<br />
+	But when, for example, browsing through msdn, you will find many information pointing to COM <i><b>interfaces</b></i>.
+	If you know <a href='http://en.wikipedia.org/wiki/Object-oriented_programming'>object oriented programming</a>,
+	you know that interfaces define what functions (or fields etc.) a class must include.
+	Speaking of COM, there are also often implementations of these interfaces, especially for system management interfaces.
+	This tutorial is a guide how to use these classes in AutoHotkey.
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Native_COM'>Native COM in AutoHotkey_L and AutoHotkey v2</h2>
+<p class='paragraph'>
+	With AutoHotkey_L's native COM functions, you can do quite a lot:
+	You can create class instances with <code>ComObjCreate()</code>, you can call these instance's methods, and you can interact with them in other ways.
+	However, you're <b>limited</b> to a subset of classes: classes that implement the <code>IDispatch</code> interface.
+	This interface allows the caller, in this case the AutoHotkey interpreter, to get a method by name.
+	Most classes don't do this, so AutoHotkey cannot call their methods like this. We will cover that topic here.
+</p>
+<p class='paragraph'>
+	But that doesn't mean an AutoHotkey version with native COM support is useless here:
+	since AutoHotkey_L v1.0.96.00, <code>ComObjCreate()</code> does not only accept a <b>ProgID</b> like <cite>InternetExplorer.Application</cite>,
+	but also a <b>CLSID</b> and an <b>IID</b> to create an instance.
+	Users with AutoHotkey classic must use the <a href='http://www.autohotkey.com/wiki/index.php?title=COM_Standard_Library'>COM Standard Library</a>
+	to do this.<br />
+	<b>So let's start now!</b>
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Investigate_Interface'>Investigating on the interface</h2>
+<p class='paragraph'>
+	First, we need some information on the interface we will work with. We'll choose <code>ITaskbarList</code>.
+	Here's what we need:
+	<ul>
+		<li>the <b>IID</b> (<b>I</b>nterface <b>Id</b>entifier) of the interface</li>
+		<li>the <b>CLSID</b> (<b>Cl</b>as<b>s</b> <b>Id</b>entifier) of a class implementing that interface.</li>
+		<li>the interface our interface inherits from. If it's <code>IUnknown</code>, everything's fine.
+			Otherwise, we should wrap this interface first.</li>
+		<li>a list of the interface's methods in vTable order (we'll cover this later).</li>
+	</ul>
+	We can check several resources to get this:
+	<ul>
+		<li>First, we visit <a href='http://wwww.msdn.com'>msdn</a> and search for our interface.
+			This will lead us to <a href='http://msdn.microsoft.com/en-us/library/bb774652%28VS.85%29.aspx'>this page</a>.
+			Unfortunately, neither CLSID nor IID are mentioned here. The method list isn't in the correct order, too.
+			But at least it tells us <code>ITaskbarList</code> directly inherits <code>IUnknown</code>.</li>
+		<li>Next, we can check the internet. I recommend <a href='http://winapi.freetechsecrets.com/win32/index.htm'>the Win32 programmer reference</a>
+			and <a href='http://winapi.freetechsecrets.com/ole/'>the OLE programmer reference</a>.
+			They usually don't hold the CLSID and the IID, but the methods in vTable-order.
+			As they don't help in our case, we can either google, or, ...</li>
+		<li>...if you have the Windows SDK, check the header file. It is named on the bottom of the msdn page: <cite>Header: Shobjidl.h</cite>.
+			Open that file and search for <code>ITaskbarList</code>, scroll down until you find something like
+			<pre>EXTERN_C const IID IID_ITaskbarList;
+
+#if defined(__cplusplus) && !defined(CINTERFACE)
+
+MIDL_INTERFACE(&quot;56FDF342-FD6D-11d0-958A-006097C9A090&quot;)
+ITaskbarList : public IUnknown</pre>
+			The string <cite>56FDF342-FD6D-11d0-958A-006097C9A090</cite> is the IID of <code>ITaskbarList</code> here.<br />
+			Now we need the CLSID of the class. In this case, the class is named <cite>TaskbarList</cite>. You'll find the following:
+			<pre>class DECLSPEC_UUID(&quot;56FDF344-FD6D-11d0-958A-006097C9A090&quot;)<br/>TaskbarList;</pre>
+			So now we have at least CLSID and IID. Going back to the definition of <code>ITaskbarList</code>, you can see the following some lines underneath:
+			<pre>    typedef struct ITaskbarListVtbl
+{
+BEGIN_INTERFACE
+
+HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+__RPC__in ITaskbarList * This,
+/* [in] */ __RPC__in REFIID riid,
+/* [annotation][iid_is][out] */ 
+__RPC__deref_out  void **ppvObject);
+
+ULONG ( STDMETHODCALLTYPE *AddRef )( 
+__RPC__in ITaskbarList * This);
+
+ULONG ( STDMETHODCALLTYPE *Release )( 
+__RPC__in ITaskbarList * This);
+
+HRESULT ( STDMETHODCALLTYPE *HrInit )( 
+__RPC__in ITaskbarList * This);
+
+HRESULT ( STDMETHODCALLTYPE *AddTab )( 
+__RPC__in ITaskbarList * This,
+/* [in] */ __RPC__in HWND hwnd);
+
+HRESULT ( STDMETHODCALLTYPE *DeleteTab )( 
+__RPC__in ITaskbarList * This,
+/* [in] */ __RPC__in HWND hwnd);
+
+HRESULT ( STDMETHODCALLTYPE *ActivateTab )( 
+__RPC__in ITaskbarList * This,
+/* [in] */ __RPC__in HWND hwnd);
+
+HRESULT ( STDMETHODCALLTYPE *SetActiveAlt )( 
+__RPC__in ITaskbarList * This,
+/* [in] */ __RPC__in HWND hwnd);
+
+END_INTERFACE
+} ITaskbarListVtbl;</pre>
+		This is the method list in vTable-order, including the methods inherited from other interfaces, in this case <code>IUnknown</code>.</li>
+	</ul>
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Create_Instance'>Creating an instance</h2>
+<p class='paragraph'>
+	So we have the following data:
+</p>
+<pre class='outline'>CLSID := &quot;{56FDF344-FD6D-11d0-958A-006097C9A090}&quot;, IID := &quot;{56FDF342-FD6D-11d0-958A-006097C9A090}&quot;</pre>
+<p class='paragraph'>
+	Now we can finally create an instance of the class:
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey classic</em><br/>ptr := COM_CreateObject(CLSID, IID)</pre>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>ptr := ComObjCreate(CLSID, IID)</pre>
+<p class='paragraph'>
+	In a few cases, it is not possible to create an instance like this, or there's an easier metod,
+	for example a <code>DllCall()</code> to a function that creates an instance.
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Pointers_VTable'>Pointers and the vTable</h2>
+<p class='paragraph'>
+	First we have to analyze what we got from this:
+	We did <b>not</b> get an object you can use like &quot;normal&quot; objects in AutoHotkey_L or AutoHotkey v2.
+	Instead we got a <b>pointer</b>: a number addressing a special location in memory. This is the same thing you get running this code:
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>ptr := ComObjUnwrap(ComObjCreate("Scripting.Dictionary"))</pre>
+<p class='paragraph'>
+	What is at that location?
+	There's another pointer, addressing the interface's <b>vTable</b>, a table containing all the functions (and properties) in the interface.
+	We can get this other pointer using <code>NumGet()</code>:
+</p>
+<pre class='outline'>vt := NumGet(ptr + 0)</pre>
+<p class='paragraph'>
+	So now the <b>vt</b> pointer points to the beginning of the vTable. We can use it to navigate in this table.
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Investigate_Method'>Investigating on a method</h2>
+<p class='paragraph'>
+	As our interface does not inherit <code>IDispatch</code>, we can't call a method by name.
+	Instead we need a pointer to the method, and to obtain this pointer, we need the method's index in the vTable.
+	We should have found a list of the interface's methods when we <a href='#Investigate_Interface'>investigated on the interface</a>.
+	Now we look up the index of the method in this list, keeping two things in mind:
+	<ul>
+		<li>The index is <b>zero-based</b>, so the first method's index is 0, not 1.</li>
+		<li>Any interface our interface (<code>ITaskbarList</code>) inherits from has its own methods in this list.
+			If our interface directly inherits <code>IUnknown</code>, we must also think of IUnknown's 3 methods (index 0, 1 and 2).
+			So the first method defined by our interface has the index 3.
+		</li>
+	</ul>
+</p>
+<p class='paragraph'>
+	Then we need some documentation on the method's parameters, their meaning and the method's return value.
+	<a href='http://www.msdn.com'>msdn</a> is the best resource here.
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Get_pointer_method'>Getting a pointer to a method</h2>
+<p class='paragraph'>
+	As like any real table, each row in the vTable has its height. This height depends on your system: 32bit systems use 4 bytes, 64bit systems use 8.
+	With AutoHotkey_L or AutoHotkey v2, we just have this value in <code>A_PtrSize</code>.
+	AutoHotkey classic users must either assume they're on 32bit, or get the value in some other way.
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey classic</em><br/>fn := NumGet(vt + 03 * 4) <em>; assumes to run on 32bit</em></pre>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>fn := NumGet(vt + 03 * A_PtrSize)</pre>
+<p class='paragraph'>
+	What is this doing? It gets the pointer to the <b>4th</b> method, using it's zero-based index as described above.
+	For <code>ITaskbarList</code>, this would be <code>HrInit()</code>.
+</p>
+<hr/>
+
+<h2 class='sub-header' id='Call_method'>Calling a method</h2>
+<p class='paragraph'>
+	Now we can call the method.
+	As the <b>fn</b> variable holds another <b>pointer</b>, this time to the method to call, we can't just do:
+</p>
+<pre class='outline'>fn()</pre>
+<p class='paragraph'>
+	Instead, we use <code>DllCall()</code> to call it:
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey classic</em><br/>DllCall(fn, &quot;uint&quot;, ptr) <em>; might have issues on 64bit</em></pre>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>DllCall(fn, &quot;ptr&quot;, ptr)</pre>
+<p class='paragraph'>
+	Three things to mention:
+	<ol>
+		<li>We do not use <code>DllCall()</code> to call a function in an DLL here.
+			Instead we use the feature documented in the help:
+			<blockquote>
+				In v1.0.46.08+, this parameter may also consist solely of an an integer, which is interpreted as the address of the function to call.
+				Sources of such addresses include COM and RegisterCallback().
+			</blockquote>
+		</li>
+		<li>This is an example for a <b>method without parameters</b>, such as <code>HrInit()</code>.
+			The only parameter we passed is the pointer to our instance.								
+		</li>
+		<li>The version for AutoHotkey classic might not work on 64bit. The reason is that the pointer is passed as an <code>uint</code>.
+			An <code>uint</code> is 4 bytes large, so this should work on 32bit.
+			But, as discussed before, on 64bit systems pointers are 8 bytes large.
+		</li>
+	</ol>
+</p>
+<p class='paragraph'>
+	The syntax we used here is quite similar to (earlier) AutoHotkey_L object syntax:
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>object.Function(param1) <em>; is the same as:</em><br/>Function(object, param1) <em>; this is what we use in COM</em></pre>
+<p class='paragraph'>
+	So to call a method with parameters, we do something like:
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey classic</em><br/>DllCall(fn, &quot;uint&quot;, ptr, &quot;uint&quot;, param1)</pre>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>DllCall(fn, &quot;ptr&quot;, ptr, &quot;uint&quot;, param1)</pre>
+<p class='paragraph'>
+	In most cases, COM methods return a value of type <code>HRESULT</code>.
+	This is an integer code indication success (<code>S_OK := 0x00</code>) or failure (anything else).
+	The failure codes also give information about the error that occured.<br/>
+	A <code>HRESULT</code> can be converted to a bool indicating success like so:
+</p>
+<pre class='outline'>success := HRESULT == 0x00</pre>
+<hr/>
+
+<h2 class='sub-header' id='short_version'>The short version</h2>
+<p class='paragraph'>
+	All the code above can be shortened:
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey classic</em><br/>ptr := COM_CreateObject(CLSID, IID)<br/>hresult := DllCall(NumGet(NumGet(ptr+0) + 03 * 4), &quot;uint&quot;, ptr, &quot;uint&quot;, param1)</pre>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em><br/>ptr := ComObjCreate(CLSID, IID)<br/>hresult := DllCall(NumGet(NumGet(ptr+0) + 03 * A_PtrSize), &quot;ptr&quot;, ptr, &quot;uint&quot;, param1)</pre>
+<hr/>
+
+<h2 class='sub-header' id='class_syntax'>Using COM interfaces with class syntax</h2>
+<p class='paragraph'>
+	The class syntax introduced with AutoHotkey_L v1.1 makes using those methods a lot more comfortable.
+	This section presents a basic example of a class implementing a COM interface.
+</p>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em>
+<em>; this class implements the IAny interface</em>
+class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid confusion. The Unknown class can be found at the COM classes topic linked in the next section</em>
+{
+static IID := &quot;{ece28e9a-7660-446a-a5fe-7051756ef392}&quot; <em>; the corresponding IID_IAny</em>
+static CLSID := &quot;{a04227c7-1019-4dcb-99be-a331ad3aff61}&quot; <em>; the corresponding CLSID_Any</em>
+
+<em>; meta-functions defined in the Unknown class</em>
+
+FirstMethod(param1)
+{
+return DllCall(NumGet(this.vt + 03 * A_PtrSize), &quot;ptr&quot;, this.ptr, &quot;uint&quot;, param1) == 0
+<em>; this.vt holds a pointer to the vTable (see Unknown constructor)</em>
+<em>; ... == 0 converts HRESULT to bool (true = success). Do not use this if the return value is not a HRESULT.</em>
+}
+}</pre>
+<hr/>
+
+<h2 class='sub-header' id='COM_Classes_Project'>COM Classes Project</h2>
+<p class='paragraph'>
+	The <b>COM Classes Project (CCP)</b> is intended to provide a set of COM interfaces and classes,
+	wrapped for AutoHotkey_L / AutoHotkey v2 in a standardized way.
+	The goal is to extend AutoHotkey's functionalities more and more, making advanced system management easier.
+</p>
+<p class='paragraph'>
+	You can look up the <a href='http://www.autohotkey.com/forum/viewtopic.php?t=71201'>forum post</a>
+	or the <a href='https://www.github.com/maul-esel/COM-Classes'>github repository</a>.
+	The <a href='https://github.com/maul-esel/COM-Classes/wiki/coding-guidelines'>format to use</a>
+	is described in the <a href='https://github.com/maul-esel/COM-Classes/wiki'>wiki</a>.
+	There you can also find a list of <a href='https://github.com/maul-esel/COM-Classes/wiki/interfaces'>wrapped and requested interfaces</a>.
+</p>
