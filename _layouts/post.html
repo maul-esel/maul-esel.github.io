@@ -26,11 +26,18 @@
 							<tr>
 								<td><b>Required version:</b></td>
 								<td>
-									{% for version, recommended in site.ahk_versions %}
+									{% for version in page.ahk_versions %}
+										{% for field in version %}
+											{% if forloop.first %}
+												{% assign name = field %}
+											{% elsif forloop.last %}
+												{% assign recommended = field %}
+											{% endif %}
+										{% endfor %}
 										{% if recommended %}
-											<span style='font-weight: bold'>{{ version }}</span>
+											<span style='font-weight: bold'>{{ name }}</span>
 										{% else %}
-											{{ version }}
+											{{ name }}
 										{% endif %}
 									{% endfor %}
 								</td>
