@@ -39,6 +39,9 @@
 										{% else %}
 											{{ name }}
 										{% endif %}
+										{% if !forloop.last }
+											,
+										{% endif %}
 									{% endfor %}
 								</td>
 							</tr>
