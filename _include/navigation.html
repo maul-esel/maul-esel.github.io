@@ -1,0 +1,33 @@
+<table class='nav-pane'>
+	<tr>
+		{% if page.Title != 'Home' %}
+			<td class='nav-element' onclick='Open("index")'>Home</td>
+		{% else %}
+			<td class='nav-element' selected='true'>Home</td>
+		{% endif %}
+
+		{% if page.Title != 'Blog' %}
+			<td class='nav-element' onclick='Open("blog")'>Blog</td>
+		{% else %}
+			<td class='nav-element' selected='true'>Blog</td>
+		{% endif %}
+
+		{% if page.Title != 'Tutorials' %}
+			<td class='nav-element' onclick='Open("tutorials")'>Tutorials</td>
+		{% else %}
+			<td class='nav-element' selected='true'>Tutorials</td>
+		{% endif %}
+
+		{% if page.Title != 'Links' %}
+			<td class='nav-element' onclick='Open("links")'>Links</td>
+		{% else %}
+			<td class='nav-element' selected='true'>Links</td>
+		{% endif %}
+
+		{% if page.Title != 'Glossary' %}
+			<td class='nav-element' onclick='Open("glossary")'>Glossary</td>
+		{% else %}
+			<td class='nav-element' selected='true'>Glossary</td>
+		{% endif %}
+	</tr>
+</table>
