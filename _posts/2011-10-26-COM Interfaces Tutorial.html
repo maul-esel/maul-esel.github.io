@@ -249,8 +249,11 @@ ITaskbarList : public IUnknown{% endhighlight %}</pre>
 	This is an integer code indication success (<code>S_OK := 0x00</code>) or failure (anything else).
 	The failure codes also give information about the error that occured.<br/>
 	A <code>HRESULT</code> can be converted to a bool indicating success like so:
+	{% highlight ahk %}
+	success := HRES == 0x00
+	{% endhighlight %}
 </p>
-<pre class='outline'>success := HRESULT == 0x00</pre>
+<!--pre class='outline'>success := HRESULT == 0x00</pre-->
 <hr/>
 
 <h2 class='sub-header' id='short_version'>The short version</h2>
@@ -281,7 +284,7 @@ class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid con
 		return DllCall(NumGet(this.vt + 03 * A_PtrSize), &quot;ptr&quot;, this.ptr, &quot;uint&quot;, param1) == 0
 		<em>; this.vt holds a pointer to the vTable (see Unknown constructor)</em>
 		<em>; ... == 0 converts HRESULT to bool (true = success). Do not use this if the return value is not a HRESULT.</em>
-	} ; end of method
+	}
 }</pre>
 <hr/>
 
