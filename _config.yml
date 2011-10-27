@@ -1,4 +1,4 @@
 auto: true
 pygments: true
 LSI: true
-permalink: date
+permalink: /:title
