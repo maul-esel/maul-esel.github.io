@@ -84,7 +84,7 @@ js_files: ['/script.js']
 			As they don't help in our case, we can either google, or, ...</li>
 		<li>...if you have the Windows SDK, check the header file. It is named on the bottom of the msdn page: <cite>Header: Shobjidl.h</cite>.
 			Open that file and search for <code>ITaskbarList</code>, scroll down until you find something like
-			<pre>EXTERN_C const IID IID_ITaskbarList;
+			<pre>{% highlight cpp lineos %}EXTERN_C const IID IID_ITaskbarList;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
 
@@ -130,7 +130,7 @@ ITaskbarList : public IUnknown</pre>
 	/* [in] */ __RPC__in HWND hwnd);
 
 	END_INTERFACE
-} ITaskbarListVtbl;</pre>
+} ITaskbarListVtbl;{% endhighlight %}</pre>
 		This is the method list in vTable-order, including the methods inherited from other interfaces, in this case <code>IUnknown</code>.</li>
 	</ul>
 </p>
@@ -267,6 +267,7 @@ ITaskbarList : public IUnknown</pre>
 </p>
 <pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em>
 <em>; this class implements the IAny interface</em>
+{% highlight ahk lineos %}
 class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid confusion. The Unknown class can be found at the COM classes topic linked in the next section</em>
 {
 	static IID := &quot;{ece28e9a-7660-446a-a5fe-7051756ef392}&quot; <em>; the corresponding IID_IAny</em>
@@ -279,8 +280,8 @@ class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid con
 		return DllCall(NumGet(this.vt + 03 * A_PtrSize), &quot;ptr&quot;, this.ptr, &quot;uint&quot;, param1) == 0
 		<em>; this.vt holds a pointer to the vTable (see Unknown constructor)</em>
 		<em>; ... == 0 converts HRESULT to bool (true = success). Do not use this if the return value is not a HRESULT.</em>
-	}
-}</pre>
+	} ; end of method
+}{% endhighlight %}</pre>
 <hr/>
 
 <h2 class='sub-header' id='COM_Classes_Project'>COM Classes Project</h2>
