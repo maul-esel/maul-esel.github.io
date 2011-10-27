@@ -83,18 +83,18 @@ css_files: ['tutorial', 'syntax']
 			As they don't help in our case, we can either google, or, ...</li>
 		<li>...if you have the Windows SDK, check the header file. It is named on the bottom of the msdn page: <cite>Header: Shobjidl.h</cite>.
 			Open that file and search for <code>ITaskbarList</code>, scroll down until you find something like
-			<pre>{% highlight cpp %}EXTERN_C const IID IID_ITaskbarList;
+			{% highlight cpp %}EXTERN_C const IID IID_ITaskbarList;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
 
 MIDL_INTERFACE("56FDF342-FD6D-11d0-958A-006097C9A090")
-ITaskbarList : public IUnknown {% endhighlight %}</pre>
+ITaskbarList : public IUnknown{% endhighlight %}
 			The string <cite>56FDF342-FD6D-11d0-958A-006097C9A090</cite> is the IID of <code>ITaskbarList</code> here.<br />
 			Now we need the CLSID of the class. In this case, the class is named <cite>TaskbarList</cite>. You'll find the following:
-<pre>{% highlight cpp %}class DECLSPEC_UUID("56FDF344-FD6D-11d0-958A-006097C9A090")
-TaskbarList; {% endhighlight %}</pre>
+{% highlight cpp %}class DECLSPEC_UUID("56FDF344-FD6D-11d0-958A-006097C9A090")
+TaskbarList;{% endhighlight %}
 			So now we have at least CLSID and IID. Going back to the definition of <code>ITaskbarList</code>, you can see the following some lines underneath:
-			<pre>{% highlight cpp %}typedef struct ITaskbarListVtbl
+			{% highlight cpp %}typedef struct ITaskbarListVtbl
 {
 	BEGIN_INTERFACE
 	
@@ -130,7 +130,7 @@ TaskbarList; {% endhighlight %}</pre>
 		/* [in] */ __RPC__in HWND hwnd);
 	
 	END_INTERFACE
-} ITaskbarListVtbl;{% endhighlight %}</pre>
+} ITaskbarListVtbl;{% endhighlight %}
 		This is the method list in vTable-order, including the methods inherited from other interfaces, in this case <code>IUnknown</code>.</li>
 	</ul>
 </p>
