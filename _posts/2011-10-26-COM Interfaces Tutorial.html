@@ -269,17 +269,17 @@ ITaskbarList : public IUnknown</pre>
 <em>; this class implements the IAny interface</em>
 class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid confusion. The Unknown class can be found at the COM classes topic linked in the next section</em>
 {
-static IID := &quot;{ece28e9a-7660-446a-a5fe-7051756ef392}&quot; <em>; the corresponding IID_IAny</em>
-static CLSID := &quot;{a04227c7-1019-4dcb-99be-a331ad3aff61}&quot; <em>; the corresponding CLSID_Any</em>
+	static IID := &quot;{ece28e9a-7660-446a-a5fe-7051756ef392}&quot; <em>; the corresponding IID_IAny</em>
+	static CLSID := &quot;{a04227c7-1019-4dcb-99be-a331ad3aff61}&quot; <em>; the corresponding CLSID_Any</em>
 
-<em>; meta-functions defined in the Unknown class</em>
+	<em>; meta-functions defined in the Unknown class</em>
 
-FirstMethod(param1)
-{
-return DllCall(NumGet(this.vt + 03 * A_PtrSize), &quot;ptr&quot;, this.ptr, &quot;uint&quot;, param1) == 0
-<em>; this.vt holds a pointer to the vTable (see Unknown constructor)</em>
-<em>; ... == 0 converts HRESULT to bool (true = success). Do not use this if the return value is not a HRESULT.</em>
-}
+	FirstMethod(param1)
+	{
+		return DllCall(NumGet(this.vt + 03 * A_PtrSize), &quot;ptr&quot;, this.ptr, &quot;uint&quot;, param1) == 0
+		<em>; this.vt holds a pointer to the vTable (see Unknown constructor)</em>
+		<em>; ... == 0 converts HRESULT to bool (true = success). Do not use this if the return value is not a HRESULT.</em>
+	}
 }</pre>
 <hr/>
 
