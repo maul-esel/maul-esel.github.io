@@ -1,0 +1,48 @@
+.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
+	color: green
+}
+
+.highlight .err {
+	background-color: lightred
+}
+
+.highlight .nb {
+	color: blue;
+	font-weight: bold
+}
+
+.highlight .sb, .highlight .se {
+	color: red
+}
+
+.highlight .mf, .highlight .mi, .highlight .mh {
+	color: red
+}
+
+.highlight .nl {
+	color: cyan
+}
+
+.highlight .nv {
+	color: orange
+}
+
+.highlight .k {
+	font-weight: bold;
+	color: darkblue
+}
+
+.highlight .p {
+	font-weight: bold
+}
+
+.highlight .s {
+	font-style: italic;
+	color: #DDDDDD
+}
+
+.highlight .o {
+	font-weight: bold;
+	color: red
+}
+
