@@ -1,0 +1,11 @@
+td#post {
+	
+}
+
+pre[lang=ahk]:before {
+	content: '{% highlight ahk lineos %}'
+}
+
+pre[lang=ahk]:after {
+	content: '{% endhighlight %}'
+}
