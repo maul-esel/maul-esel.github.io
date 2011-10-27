@@ -88,12 +88,12 @@ css_files: ['/css/tutorial.css']
 #if defined(__cplusplus) && !defined(CINTERFACE)
 
 MIDL_INTERFACE(&quot;56FDF342-FD6D-11d0-958A-006097C9A090&quot;)
-ITaskbarList : public IUnknown</pre>
+ITaskbarList : public IUnknown{% endhighlight %}</pre>
 			The string <cite>56FDF342-FD6D-11d0-958A-006097C9A090</cite> is the IID of <code>ITaskbarList</code> here.<br />
 			Now we need the CLSID of the class. In this case, the class is named <cite>TaskbarList</cite>. You'll find the following:
 			<pre>class DECLSPEC_UUID(&quot;56FDF344-FD6D-11d0-958A-006097C9A090&quot;)<br/>TaskbarList;</pre>
 			So now we have at least CLSID and IID. Going back to the definition of <code>ITaskbarList</code>, you can see the following some lines underneath:
-			<pre>    typedef struct ITaskbarListVtbl
+			<pre>{% highlight cpp lineos %}    typedef struct ITaskbarListVtbl
 	{
 	BEGIN_INTERFACE
 
