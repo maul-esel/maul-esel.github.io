@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ page.title }}</title>
+		
+		<link rel='stylesheet' type='text/css' href='/css/default.css'/>
+		{% for css in page.css_files %}
+			<link rel='stylesheet' type='text/css' href='{{ css }}'/>
+		{% endfor %}
+		
+		<script type='text/javascript' src='/script.js'></script>
+		{% for js in page.js_files %}
+			<script type='text/javascript' src='{{ js }}'></script>
+		{% endfor %}
+	</head>
+	<body>
+		<noscript>
+			<span id='js-warning'>Attention: This site requires JavaScript to be enabled for navigation.</span>
+		</noscript>
+
+		<div id='nav-top'>
+			{% include navigation.html %}
+		</div>
+		<div id='content'>
+			{{ content }}
+		</div>
+		<div id='nav-bottom'>
+			{% include navigation.html %}
+		</div>
+	</body>
+</body>
