@@ -1,71 +1,11 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>{{ page.title }}</title>
-		{% for css in page.css_files %}
-			<link rel='stylesheet' href='{{ css }}' type='text/css'/>
-		{% endfor %}
-		<link rel='stylesheet' href='/css/post.css' type='text/css'/>
-		{% for js in page.js_files %}
-			<script type='text/javascript' src='{{ js }}'></script>
-		{% endfor %}
-	</head>
-	<body>
-		<table width='100%'>
-			<thead>
-				<tr>
-					<td style='background-color:lightgray; padding:10px'>
-						{% include navigation.html %}
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td id='post'>
-						<h1>{{ page.Title }}</h1>
-						<table class='requirements' border='1' rules='rows' frame='void' cellpadding='10px'>
-							<tr>
-								<td><b>Required version:</b></td>
-								<td>
-									{% for version in page.ahk_versions %}
-										{% for field in version %}
-											{% if forloop.first %}
-												{% assign name = field %}
-											{% elsif forloop.last %}
-												{% assign recommended = field %}
-											{% endif %}
-										{% endfor %}
-										{% if recommended %}
-											<span style='font-weight: bold'>{{ name }}</span>
-										{% else %}
-											{{ name }}
-										{% endif %}
-										{% if !forloop.last }
-											,
-										{% endif %}
-									{% endfor %}
-								</td>
-							</tr>
-							<tr>
-								<td><b>Required OS:</b></td>
-								<td>{{ page.required_os }}</td>
-							</tr>
-							<tr>
-								<td><b>Skills:</b></td>
-								<td>{{ page.skills }}</td>
-							</tr>
-						</table>
-						{{ content }}
-					</td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td style='background-color:lightgray; padding:10px'>
-						{% include navigation.html %}
-					</td>
-				</tr>
-			</tfoot>
-		</table>
-	</body>
-</html>
+---
+layout: default
+---
+<div id='post'>
+	<h1>{{ post.title }}</h1>
+	<hr/>
+
+	<div id='post-content'>
+		{{ content }}
+	</div>
+</div>

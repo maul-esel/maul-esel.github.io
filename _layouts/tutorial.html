@@ -1,0 +1,43 @@
+---
+layout: post
+---
+<div id='tutorial'>
+	<div id='tutorial-data'>	
+		<table id='requirements' border='1' rules='rows' frame='void' cellpadding='10px'>
+			<tr>
+				<td><b>Required version:</b></td>
+				<td>
+					{% for version in page.ahk_versions %}
+						{% for field in version %}
+							{% if forloop.first %}
+								{% assign name = field %}
+							{% elsif forloop.last %}
+								{% assign recommended = field %}
+							{% endif %}
+						{% endfor %}
+						{% if recommended %}
+							<span style='font-weight: bold'>{{ name }}</span>
+						{% else %}
+							{{ name }}
+						{% endif %}
+						{% if !forloop.last }
+							,
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<td><b>Required OS:</b></td>
+				<td>{{ page.required_os }}</td>
+			</tr>
+			<tr>
+				<td><b>Skills:</b></td>
+				<td>{{ page.skills }}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div id='tutorial-content'>
+		{{ content }}
+	</div>
+</div>
