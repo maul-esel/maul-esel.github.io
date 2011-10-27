@@ -83,7 +83,8 @@ css_files: ['/css/tutorial.css']
 			As they don't help in our case, we can either google, or, ...</li>
 		<li>...if you have the Windows SDK, check the header file. It is named on the bottom of the msdn page: <cite>Header: Shobjidl.h</cite>.
 			Open that file and search for <code>ITaskbarList</code>, scroll down until you find something like
-			<pre>{% highlight cpp lineos %}EXTERN_C const IID IID_ITaskbarList;
+			<pre>{% highlight cpp lineos %}
+EXTERN_C const IID IID_ITaskbarList;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
 
@@ -129,7 +130,8 @@ ITaskbarList : public IUnknown{% endhighlight %}</pre>
 	/* [in] */ __RPC__in HWND hwnd);
 
 	END_INTERFACE
-} ITaskbarListVtbl;{% endhighlight %}</pre>
+} ITaskbarListVtbl;
+{% endhighlight %}</pre>
 		This is the method list in vTable-order, including the methods inherited from other interfaces, in this case <code>IUnknown</code>.</li>
 	</ul>
 </p>
