@@ -79,7 +79,6 @@ pre, code {
 	padding: 2px;
 	margin: 5px;
 	font-family: Consolas, Courier New, monospace;
-	font-size: 80%;
 }
 
 pre em, code em { /* comments */

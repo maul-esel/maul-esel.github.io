@@ -264,7 +264,7 @@ ITaskbarList : public IUnknown</pre>
 	The class syntax introduced with AutoHotkey_L v1.1 makes using those methods a lot more comfortable.
 	This section presents a basic example of a class implementing a COM interface.
 </p>
-<pre class='outline' versioned='true'>{% highlight ahk lineos %}<em>; AutoHotkey_L or AutoHotkey v2</em>
+<pre class='outline' versioned='true'><em>; AutoHotkey_L or AutoHotkey v2</em>
 <em>; this class implements the IAny interface</em>
 
 class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid confusion. The Unknown class can be found at the COM classes topic linked in the next section</em>
@@ -280,7 +280,7 @@ class Any extends Unknown <em>; leave out the leading &quot;I&quot; to avoid con
 		<em>; this.vt holds a pointer to the vTable (see Unknown constructor)</em>
 		<em>; ... == 0 converts HRESULT to bool (true = success). Do not use this if the return value is not a HRESULT.</em>
 	} ; end of method
-}{% endhighlight %}</pre>
+}</pre>
 <hr/>
 
 <h2 class='sub-header' id='COM_Classes_Project'>COM Classes Project</h2>
