@@ -83,8 +83,7 @@ css_files: ['tutorial', 'syntax']
 			As they don't help in our case, we can either google, or, ...</li>
 		<li>...if you have the Windows SDK, check the header file. It is named on the bottom of the msdn page: <cite>Header: Shobjidl.h</cite>.
 			Open that file and search for <code>ITaskbarList</code>, scroll down until you find something like
-			<pre>{% highlight cpp %}
-EXTERN_C const IID IID_ITaskbarList;
+			<pre>{% highlight cpp %}EXTERN_C const IID IID_ITaskbarList;
 
 #if defined(__cplusplus) && !defined(CINTERFACE)
 
@@ -92,7 +91,8 @@ MIDL_INTERFACE("56FDF342-FD6D-11d0-958A-006097C9A090")
 ITaskbarList : public IUnknown {% endhighlight %}</pre>
 			The string <cite>56FDF342-FD6D-11d0-958A-006097C9A090</cite> is the IID of <code>ITaskbarList</code> here.<br />
 			Now we need the CLSID of the class. In this case, the class is named <cite>TaskbarList</cite>. You'll find the following:
-			<pre>{% highlight cpp %} class DECLSPEC_UUID("56FDF344-FD6D-11d0-958A-006097C9A090")<br/>TaskbarList; {% endhighlight %}</pre>
+<pre>{% highlight cpp %}class DECLSPEC_UUID("56FDF344-FD6D-11d0-958A-006097C9A090")
+TaskbarList; {% endhighlight %}</pre>
 			So now we have at least CLSID and IID. Going back to the definition of <code>ITaskbarList</code>, you can see the following some lines underneath:
 			<pre>{% highlight cpp %}typedef struct ITaskbarListVtbl
 {
@@ -140,7 +140,7 @@ ITaskbarList : public IUnknown {% endhighlight %}</pre>
 <p class='paragraph'>
 	So we have the following data:
 </p>
-<pre class='outline'>{% highlight ahk %} CLSID := "{56FDF344-FD6D-11d0-958A-006097C9A090}", IID := "{56FDF342-FD6D-11d0-958A-006097C9A090}" {% endhighlight %}</pre>
+<pre class='outline'>CLSID := "{56FDF344-FD6D-11d0-958A-006097C9A090}", IID := "{56FDF342-FD6D-11d0-958A-006097C9A090}"</pre>
 <p class='paragraph'>
 	Now we can finally create an instance of the class:
 </p>
