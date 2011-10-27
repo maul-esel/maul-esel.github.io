@@ -249,11 +249,10 @@ ITaskbarList : public IUnknown{% endhighlight %}</pre>
 	This is an integer code indication success (<code>S_OK := 0x00</code>) or failure (anything else).
 	The failure codes also give information about the error that occured.<br/>
 	A <code>HRESULT</code> can be converted to a bool indicating success like so:
-	{% highlight ahk %}
-	success := HRES == 0x00
-	{% endhighlight %}
 </p>
-<!--pre class='outline'>success := HRESULT == 0x00</pre-->
+{% highlight ahk %}
+<pre class='outline'>success := HRESULT == 0x00</pre>
+{% endhighlight %}
 <hr/>
 
 <h2 class='sub-header' id='short_version'>The short version</h2>
