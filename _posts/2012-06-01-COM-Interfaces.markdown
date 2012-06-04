@@ -39,7 +39,7 @@ All COM interfaces inherit `IUnknown`. Some interfaces derive directly from it. 
 * a list of the interface's methods in vTable order
 This special order will be covered later in the tutorial. It is absolutely necessary that it fits exactly, otherwise the method calls go wrong.
 
-For this tutorial, we will use the `ITaskbarList` interface to manipulate the Windows taskbar. It is implemented by the System `TaskbarList` class.
+For this tutorial, we will use the `ITaskbarList` interface to manipulate the Windows taskbar. It is implemented by the system's `TaskbarList` class.
 
 As first step, we search the interface on msdn. This leads us to [this site](http://msdn.microsoft.com/en-us/library/windows/desktop/bb774652). Unfortunately, neither IID nor CLSID are mentioned there (look out, for other interfaces they are mentioned!). Also **pay attention:** the method order on msdn is almost always NOT the order we require. But at least it tells us that `ITaskbarList` directly inherits from `IUnknown`.
 
