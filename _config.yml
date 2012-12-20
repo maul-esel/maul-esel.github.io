@@ -1,3 +1,7 @@
 auto: true
 pygments: true
-LSI: true
+markdown: redcarpet
+
+redcarpet:
+  render_options:
+    - fenced_code_blocks
