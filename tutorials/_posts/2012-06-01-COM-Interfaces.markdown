@@ -2,7 +2,7 @@
 layout: tutorial
 title: COM interface tutorial
 categories: ['tutorials', 'AutoHotkey', 'AutoHotkey_L', 'IronAHK', 'COM']
-permalink: '/COM-Interfaces-m.html'
+permalink: '/tutorials/COM-Interfaces-m.html'
 
 ahk_versions: [['AutoHotkey', false], ['AutoHotkey_L', true], ['AutoHotkey v2', true]]
 required_os: 'None'
