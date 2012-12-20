@@ -1,33 +1,7 @@
-<table class='nav-pane'>
-	<tr>
-		{% if page.Title != 'Home' %}
-			<td class='nav-element' onclick='Open("index")'>Home</td>
-		{% else %}
-			<td class='nav-element' selected='true'>Home</td>
-		{% endif %}
-
-		{% if page.Title != 'Blog' %}
-			<td class='nav-element' onclick='Open("blog")'>Blog</td>
-		{% else %}
-			<td class='nav-element' selected='true'>Blog</td>
-		{% endif %}
-
-		{% if page.Title != 'Tutorials' %}
-			<td class='nav-element' onclick='Open("tutorials")'>Tutorials</td>
-		{% else %}
-			<td class='nav-element' selected='true'>Tutorials</td>
-		{% endif %}
-
-		{% if page.Title != 'Links' %}
-			<td class='nav-element' onclick='Open("links")'>Links</td>
-		{% else %}
-			<td class='nav-element' selected='true'>Links</td>
-		{% endif %}
-
-		{% if page.Title != 'Glossary' %}
-			<td class='nav-element' onclick='Open("glossary")'>Glossary</td>
-		{% else %}
-			<td class='nav-element' selected='true'>Glossary</td>
-		{% endif %}
-	</tr>
-</table>
+<div style='' class='nav-pane'>
+	{% if page.nav_section == 'Home' %}	<a class='nav-element' href='/index.html' selected='true'>Home</a>		{% else %}<a class='nav-element' href='/index.html'>Home</a>		{% endif %}
+	{% if page.nav_section == 'Blog' %}		<a class='nav-element' href='/blog.html' selected='true'>Blog</a>			{% else %}<a class='nav-element' href='/blog.html'>Blog</a>			{% endif %}
+	{% if page.nav_section == 'Tutorials' %}	<a class='nav-element' href='/tutorials.html' selected='true'>Tutorials</a>	{% else %}<a class='nav-element' href='/tutorials.html'>Tutorials</a>	{% endif %}
+	{% if page.nav_section == 'Links' %}		<a class='nav-element' href='/links.html' selected='true'>Links</a>		{% else %}<a class='nav-element' href='/links.html'>Links</a>		{% endif %}
+	{% if page.nav_section == 'Glossary' %}	<a class='nav-element' href='/glossary.html' selected='true'>Glossary</a>	{% else %}<a class='nav-element' href='/glossary.html'>Glossary</a>	{% endif %}
+</div>
