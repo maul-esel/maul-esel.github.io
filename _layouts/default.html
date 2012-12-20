@@ -2,16 +2,16 @@
 <html>
 	<head>
 		<title>{{ page.title }}</title>
-		
+
 		<link rel='stylesheet' type='text/css' href='/css/default.css'/>
-		{% for css in page.css_files %}
-			<link rel='stylesheet' type='text/css' href='/css/{{ css }}.css'/>
-		{% endfor %}
-		
+	{% for css in page.css_files %}
+		<link rel='stylesheet' type='text/css' href='/css/{{ css }}.css'/>
+	{% endfor %}
+
 		<script type='text/javascript' src='/script.js'></script>
-		{% for js in page.js_files %}
-			<script type='text/javascript' src='/{{ js }}.js'></script>
-		{% endfor %}
+	{% for js in page.js_files %}
+		<script type='text/javascript' src='/{{ js }}.js'></script>
+	{% endfor %}
 	</head>
 	<body>
 		<noscript>
@@ -24,6 +24,7 @@
 		<div id='content'>
 			{{ content }}
 		</div>
+		<hr/>
 		<div id='nav-bottom'>
 			{% include navigation.html %}
 		</div>
