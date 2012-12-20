@@ -1,51 +1,23 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Tutorials</title>
-		<script type='text/javascript' src='script.js'></script>
-		<link rel='StyleSheet' href='/css/default.css' type='text/css'/>
-		<link rel='StyleSheet' href='/css/tutorial-style.css' type='text/css'/>
-	</head>	
-	<body>
-	
-		<table width='100%'>
-			<thead>
-				<tr>
-					<td style='background-color:lightgray; padding:10px'>
-						<table class='nav-pane'>
-							<tr>
-								<td class='nav-element' onclick='Open("index")'>Home</td>
-								<td class='nav-element' onclick='Open("blog")'>Blog</td>
-								<td class='nav-element' selected='true'>Tutorials</td>
-								<td class='nav-element' onclick='Open("links")'>Links</td>
-								<td class='nav-element' onclick='Open("glossary")'>Glossary</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<h1>My tutorials</h1>
-						<hr />
-						<p>
-							Here I post some tutorials I'll do from time to time.
-						</p>
-						<h2 class='sub-header'>AutoHotkey</h2>
-						<ul style='list-style-type:none'>
-							<li class='tutorial-entry'>
-								<h3><a href="tutorials/COM_Interfaces_AHK.html">COM Interfaces with AutoHotkey</a></h3>
-								<p>
-									This tutorial describes how to call COM interface methods from AutoHotkey, with AutoHotkey classic as well as with AutoHotkey_L and AutoHotkey v2.
-								</p>
-							</li>
-						</ul>
-						
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		
-	</body>
-</html>
+---
+layout: default
+title: TUTORIALS | maul-esel
+permalink: '/tutorials.html'
+
+nav_section: 'Tutorials'
+css_files: ['tutorial-style']
+---
+
+<h1>My tutorials</h1>
+<hr />
+<p>
+	Here I post some tutorials I'll do from time to time.
+</p>
+<h2 class='sub-header'>AutoHotkey</h2>
+<ul style='list-style-type:none'>
+	<li class='tutorial-entry'>
+		<h3><a href="tutorials/COM_Interfaces_AHK.html">COM Interfaces with AutoHotkey</a></h3>
+		<p>
+			This tutorial describes how to call COM interface methods from AutoHotkey, with AutoHotkey classic as well as with AutoHotkey_L and AutoHotkey v2.
+		</p>
+	</li>
+</ul>
