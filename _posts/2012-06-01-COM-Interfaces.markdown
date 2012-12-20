@@ -1,4 +1,4 @@
-﻿---
+---
 layout: tutorial
 title: COM interface tutorial
 categories: ['tutorials', 'AutoHotkey', 'AutoHotkey_L', 'IronAHK', 'COM']
