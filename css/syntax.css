@@ -3,7 +3,7 @@
 	background-color: #222222
 }
 
-.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
+.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs, .highlight .c-Singleline {
 	color: green
 }
 
@@ -13,7 +13,10 @@
 
 .highlight .nb {
 	color: blue;
-	font-weight: bold
+}
+
+.highlight .nf {
+	color: darkviolet;
 }
 
 .highlight .sb, .highlight .se {
@@ -29,7 +32,7 @@
 }
 
 .highlight .nv {
-	color: orange
+	color: darkorange
 }
 
 .highlight .k {
@@ -43,7 +46,7 @@
 
 .highlight .s {
 	font-style: italic;
-	color: #FFCC00
+	color: #333;
 }
 
 .highlight .o {
