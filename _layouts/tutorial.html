@@ -15,7 +15,7 @@ layout: post
 								{% assign recommended = field %}
 							{% endif %}
 						{% endfor %}
-						{% if recommended %}<span style='font-weight: bold'>{{ name }}</span>{% else %}{{ name }}{% endif %}{% if forloop.last != true %},{% endif %}
+						{% if recommended %}<strong>{{ name }}</strong>{% else %}{{ name }}{% endif %}{% if forloop.last != true %},{% endif %}
 					{% endfor %}
 				</td>
 			</tr>
